@@ -1,4 +1,3 @@
-import { Calendar } from "lucide-react";
 import { ComponentProps, ReactNode } from "react";
 
 interface BadgeProps extends ComponentProps<"div"> {

@@ -4,12 +4,14 @@ import {
   Calendar,
   Info,
   InfoIcon,
+  Link2,
+  LinkIcon,
   MapPin,
   Ticket,
   TicketCheck,
 } from "lucide-react";
-import { Badge, BadgeIcon } from "./badge";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Bloco() {
   return (
@@ -19,26 +21,10 @@ export default function Bloco() {
           <h1 className="font-heading text-2xl md:text-4xl text-start text-pretty text-yellow-400">
             Nome do bloco
           </h1>
-          <div className="space-y-2">
-            <Badge info="04/03/2025 - Terça - 11:00">
-              <BadgeIcon>
-                <Calendar className="size-5 text-purple-200" />
-              </BadgeIcon>
-            </Badge>
-            <Badge info="R. Augusta, 1300">
-              <BadgeIcon>
-                <MapPin className="size-5 text-purple-200" />
-              </BadgeIcon>
-            </Badge>
-            <Badge info="Grátis">
-              <BadgeIcon>
-                <Ticket className="size-5 text-purple-200" />
-              </BadgeIcon>
-            </Badge>
-          </div>
+          <div className="space-y-2"></div>
         </div>
       </div>
-      <div className="flex flex-col w-full max-w-[800px] mt-21 gap-16 md:px-5 px-5 lg:px-0 items-center justify-start">
+      <div className="flex flex-col w-full max-w-[800px] mt-21 gap-12 md:px-5 px-5 lg:px-0 items-center justify-start">
         <div className="w-full space-y-4">
           <div className="flex flex-row gap-2 items-center">
             <span>
@@ -61,8 +47,24 @@ export default function Bloco() {
             <h2 className="font-heading text-3xl">Ingresso</h2>
           </div>
           <p className="text-[#333333] font-bold text-pretty">
+            Grátis
             {/*{price === "Grátis" ? price : `R$ ${price}`}*/}
           </p>
+        </div>
+        <div className="w-full space-y-4">
+          <div className="flex flex-row gap-2 items-center justify-start">
+            <span>
+              <LinkIcon className="size-8 text-purple-500" />
+            </span>
+            <h2 className="font-heading text-3xl">Mais informações</h2>
+          </div>
+          <Link
+            className="text-[#333333] font-bold text-pretty hover:underline"
+            href=""
+            target="_blank"
+          >
+            Teste
+          </Link>
         </div>
       </div>
       <Footer />
