@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: var(--font-poetsen-one);
+  --font-sans: var(--font-inter);
+}
