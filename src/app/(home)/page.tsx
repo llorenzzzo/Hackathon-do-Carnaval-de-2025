@@ -4,6 +4,8 @@ import { SectionHeading } from "@/components/section-heading";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { Bloquinho } from "@/components/bloquinho";
+import { Select, SelectIcon, SelectInput } from "@/components/select";
+import { Input, InputIcon, InputRoot } from "@/components/input";
 
 export default function Home() {
   return (
@@ -14,27 +16,26 @@ export default function Home() {
             Encontre seu bloquinho de carnaval
           </h1>
           <div className="flex flex-row gap-6">
-            <div className="group focus-within:border-purple-100 purple-800 border-2 border-purple-600 text-purple-300 font-normal flex flex-row gap-3 py-3 px-6 rounded-2xl">
-              <span>
+            <Select>
+              <SelectIcon>
                 <Calendar />
-              </span>
-              <select className="outline-0" name="data" id="select-data">
-                <option value="">1</option>
-                <option value="">2</option>
-              </select>
-            </div>
-            <div className="group focus-within:border-purple-100 purple-800 border-2 border-purple-600 text-purple-300 font-normal flex flex-row gap-3 py-3 px-6 rounded-2xl">
-              <span>
+              </SelectIcon>
+              <SelectInput>
+                <option>Selecione a data</option>
+                <option>1</option>
+              </SelectInput>
+            </Select>
+            <InputRoot>
+              <InputIcon>
                 <Search />
-              </span>
-              <input
-                className="outline-0 w-full placeholder-purple-300 text-sm"
+              </InputIcon>
+              <Input
                 type="text"
                 name="data"
                 id="select-data"
                 placeholder="Busque por blocos na cidade escolhida"
-              ></input>
-            </div>
+              ></Input>
+            </InputRoot>
           </div>
         </div>
       </div>

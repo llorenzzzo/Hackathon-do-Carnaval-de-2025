@@ -1,0 +1,29 @@
+import { Calendar } from "lucide-react";
+import { ComponentProps, ReactNode } from "react";
+
+interface SelectProps extends ComponentProps<"div"> {
+  children: ReactNode;
+}
+
+export function Select({ children, ...props }: SelectProps) {
+  return (
+    <div
+      className="group w-fit bg-purple-800 focus-within:border-purple-100 purple-800 border-2 border-purple-600 text-purple-300 font-normal flex flex-row gap-3 py-3 px-6 rounded-2xl"
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+interface SelectIconProps extends ComponentProps<"span"> {}
+
+export function SelectIcon(props: SelectIconProps) {
+  return <span className="text-purple-300" {...props}></span>;
+}
+
+interface SelectInputProps extends ComponentProps<"select"> {}
+
+export function SelectInput(props: SelectInputProps) {
+  return <select className="outline-0" {...props}></select>;
+}
