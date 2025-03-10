@@ -6,7 +6,13 @@ import { Bloquinho } from "@/components/bloquinho";
 import { Select, SelectIcon, SelectInput } from "@/components/select";
 import { Input, InputIcon, InputRoot } from "@/components/input";
 
-export default function Home() {
+export default async function Home() {
+  const response = await fetch(
+    "https://apis.codante.io/api/bloquinhos2025/agenda?city=Rio%20de%20Janeiro&date=2025-02-28"
+  );
+  const blocos = await response.json();
+  console.log(blocos);
+
   return (
     <div className="">
       <div className="w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center">
@@ -58,71 +64,36 @@ export default function Home() {
         <div className="max-w-[1240px] mx-auto px-6 mt-20">
           <SectionHeading title="Próximos Blocos em Joinville" />
           <div className="flex flex-row flex-wrap mt-6 gap-6 ">
-            <Bloquinho
-              title="Teste"
-              date={new Date("2025-02-28T18:00:00.000Z")}
-              neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-              price="Grátis"
-            />
+            {blocos.data.map((bloquinho: any) => (
+              <Bloquinho
+                key={bloquinho.id}
+                title={bloquinho.title}
+                date={new Date("2025-02-28T18:00:00.000Z")}
+                neighborhood={bloquinho.neighborhood}
+                price={bloquinho.price}
+                id={bloquinho.id}
+              />
+            ))}
           </div>
           <Cidades />
           <div className="max-w-[1240px] mx-auto px-6 mt-20">
             <SectionHeading title="Blocos Grátis em Joinville" link="#" />
             <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6 gap-6">
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-                price="Grátis"
-              />
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-                price="Grátis"
-              />
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaa"
-                price="Grátis"
-              />
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-                price="Grátis"
-              />
+              {blocos.data.slice(0, 4).map((bloquinho: any) => (
+                <Bloquinho
+                  key={bloquinho.id}
+                  title={bloquinho.title}
+                  date={new Date("2025-02-28T18:00:00.000Z")}
+                  neighborhood={bloquinho.neighborhood}
+                  price={bloquinho.price}
+                  id={bloquinho.id}
+                />
+              ))}
             </div>
           </div>
           <div className="max-w-[1240px] mx-auto px-6 mt-20">
             <SectionHeading title="Blocos Pagos em Joinville" link="#" />
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6 gap-6">
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-                price="Grátis"
-              />
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-                price="Grátis"
-              />
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaa"
-                price="Grátis"
-              />
-              <Bloquinho
-                title="Teste"
-                date={new Date("2025-02-28T18:00:00.000Z")}
-                neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-                price="Grátis"
-              />
-            </div>
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6 gap-6"></div>
           </div>
         </div>
       </div>

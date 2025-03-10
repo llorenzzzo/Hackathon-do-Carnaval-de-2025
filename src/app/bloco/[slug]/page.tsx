@@ -14,7 +14,13 @@ import { Badge, BadgeIcon } from "./badge";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Bloco() {
+export default async function Bloco() {
+  const response = await fetch(
+    "https://apis.codante.io/api/bloquinhos2025/agenda?city=Rio%20de%20Janeiro&date=2025-02-28"
+  );
+  const blocos = await response.json();
+  console.log(blocos);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-full h-[300px] bg-purple-900 flex flex-col items-center justify-center md:px-5 px-5 lg:px-0">

@@ -1,12 +1,16 @@
+"use client";
+
 import { Calendar, MapPin, Ticket } from "lucide-react";
 import { ComponentProps } from "react";
 import { Button } from "./button";
+import { useRouter } from "next/navigation";
 
 interface BloquinhoProps {
   title: string;
   date: Date;
   neighborhood: string;
   price: string;
+  id: string;
 }
 
 export function Bloquinho({
@@ -14,7 +18,13 @@ export function Bloquinho({
   date,
   neighborhood,
   price,
+  id,
 }: BloquinhoProps) {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/bloco/${id}`);
+  };
+
   const formattedDate = date.toLocaleDateString("pt-BR", {
     weekday: "long",
     day: "2-digit",
@@ -51,7 +61,7 @@ export function Bloquinho({
           </div>
         </div>
       </div>
-      <Button>Ver mais</Button>
+      <Button onClick={handleClick}>Ver mais</Button>
     </div>
   );
 }
