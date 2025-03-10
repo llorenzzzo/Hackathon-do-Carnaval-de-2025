@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Poetsen_One, Inter } from "next/font/google";
 import Logo from "../assets/logo.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 const poetsenOne = Poetsen_One({
   weight: ["400"],
@@ -35,13 +36,24 @@ export default function RootLayout({
       <body className="bg-[#FEFCFF] text-gray-800 antialiased">
         <div className="w-full bg-purple-950 h-20 flex flex-row items-center justify-center py-15 md:p-0">
           <div className="w-full max-w-[1240px] flex flex-row items-center justify-center md:justify-between md:mx-5 flex-wrap gap-4">
-            <Image src={Logo} alt="Bloquinhos 2025" />
+            <Link href="/">
+              <Image src={Logo} alt="Bloquinhos 2025" />
+            </Link>
             <nav>
-              <ol className="flex flex-row gap-6 text-yellow-400 font-bold">
-                <li>Home</li>
-                <li>Agenda</li>
-                <li>Cidades</li>
-              </ol>
+              <div className="flex flex-row gap-6 text-yellow-400 font-bold">
+                <Link
+                  className="hover:underline hover:text-yellow-200"
+                  href="/"
+                >
+                  Home
+                </Link>
+                <Link
+                  className="hover:underline hover:text-yellow-200"
+                  href="/agenda"
+                >
+                  Agenda
+                </Link>
+              </div>
             </nav>
           </div>
         </div>
