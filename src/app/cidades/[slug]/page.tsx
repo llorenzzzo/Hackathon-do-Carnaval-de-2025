@@ -71,6 +71,7 @@ export default function Bloco() {
           </div>
           <div className="w-full max-w-[1240px] items-center justify-center flex flex-row flex-wrap mt-6 gap-6 ">
             <Bloquinho
+              id=""
               title="Teste"
               date={new Date("2025-02-28T18:00:00.000Z")}
               neighborhood="Testeaaaaaaaaaaaaaaaaaa"

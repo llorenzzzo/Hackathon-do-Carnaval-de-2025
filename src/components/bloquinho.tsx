@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, MapPin, Ticket } from "lucide-react";
+import { Calendar, MapPin, MapPinned, Ticket } from "lucide-react";
 import { ComponentProps } from "react";
 import { Button } from "./button";
 import { useRouter } from "next/navigation";
@@ -35,7 +35,9 @@ export function Bloquinho({
   return (
     <div className="group flex flex-row w-full min-w-[264px] bg-purple-50 border-2 border-purple-200 p-4 items-center justify-between rounded-2xl gap-6 flex-wrap hover:border-purple-800 transition-all duration-300">
       <div className="flex flex-col gap-3">
-        <p className="font-bold text-2xl text-purple-950">{title}</p>
+        <p className="font-bold text-[22px] text-purple-950 text-pretty">
+          {title}
+        </p>
         <div className="flex flex-row gap-6 flex-wrap w-full text-wrap">
           <div className="flex flex-row gap-2 items-center">
             <span className="text-purple-500 size-5">
@@ -47,7 +49,7 @@ export function Bloquinho({
           </div>
           <div className="flex flex-row gap-2 items-center">
             <span className="text-purple-500 size-5">
-              <MapPin />
+              <MapPinned />
             </span>
             <p className="font-semibold text-purple-900 text-pretty">
               {neighborhood}
@@ -57,7 +59,9 @@ export function Bloquinho({
             <span className="text-purple-500 size-5">
               <Ticket />
             </span>
-            <p className="font-semibold text-purple-900 text-pretty">{price}</p>
+            <p className="font-semibold text-purple-900 text-pretty">
+              {price === "" ? "Valor não informado" : price}
+            </p>
           </div>
         </div>
       </div>

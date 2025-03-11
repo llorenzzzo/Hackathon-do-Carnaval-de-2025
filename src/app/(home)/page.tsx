@@ -8,10 +8,9 @@ import { Input, InputIcon, InputRoot } from "@/components/input";
 
 export default async function Home() {
   const response = await fetch(
-    "https://apis.codante.io/api/bloquinhos2025/agenda?city=Rio%20de%20Janeiro&date=2025-02-28"
+    "https://apis.codante.io/api/bloquinhos2025/agenda?page=1"
   );
   const blocos = await response.json();
-  console.log(blocos);
 
   return (
     <div className="">
