@@ -4,10 +4,11 @@ import { Calendar, MapPin, MapPinned, Ticket } from "lucide-react";
 import { ComponentProps } from "react";
 import { Button } from "./button";
 import { useRouter } from "next/navigation";
+import { formatDate } from "@/utils/formattedDate";
 
 interface BloquinhoProps {
   title: string;
-  date: Date;
+  date: string;
   neighborhood: string;
   price: string;
   id: string;
@@ -25,12 +26,7 @@ export function Bloquinho({
     router.push(`/bloco/${id}`);
   };
 
-  const formattedDate = date.toLocaleDateString("pt-BR", {
-    weekday: "long",
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
+  const formattedDate = formatDate(date);
 
   return (
     <div className="group flex flex-row w-full min-w-[264px] bg-purple-50 border-2 border-purple-200 p-4 items-center justify-between rounded-2xl gap-6 flex-wrap hover:border-purple-800 transition-all duration-300">

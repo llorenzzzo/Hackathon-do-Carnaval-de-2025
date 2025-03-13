@@ -8,42 +8,42 @@ export function Cidades() {
         Veja também
       </h2>
       <div className="flex flex-row flex-wrap items-center justify-center mt-6 gap-6">
-        <City city="São Paulo">
+        <City cityUrl="São%20Paulo" city="São Paulo">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Rio de Janeiro">
+        <City cityUrl="Rio%20de%20Janeiro" city="Rio de Janeiro">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Belo Horizonte">
+        <City cityUrl="Belo%20Horizonte" city="Belo Horizonte">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Salvador">
+        <City cityUrl="Salvador" city="Salvador">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Recife e Olinda">
+        <City cityUrl="Recife" city="Recife e Olinda">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Brasília">
+        <City cityUrl="Brasilia" city="Brasília">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Fortaleza">
+        <City cityUrl="Fortaleza" city="Fortaleza">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>
         </City>
-        <City city="Porto Alegre">
+        <City cityUrl="Porto%20Alegre" city="Porto Alegre">
           <CityIcon>
             <Building2 className="size-8" />
           </CityIcon>

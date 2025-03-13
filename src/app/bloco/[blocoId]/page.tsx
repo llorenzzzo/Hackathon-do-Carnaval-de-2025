@@ -2,17 +2,14 @@ import { Footer } from "@/components/footer";
 import {
   BadgeInfoIcon,
   Calendar,
-  Info,
-  InfoIcon,
-  Link2,
   LinkIcon,
   MapPin,
   Ticket,
   TicketCheck,
 } from "lucide-react";
 import { Badge, BadgeIcon } from "./badge";
-import Image from "next/image";
 import Link from "next/link";
+import { formatDate } from "@/utils/formattedDate";
 
 interface PageProps {
   params: Promise<{
@@ -40,8 +37,6 @@ export default async function Bloco(props: PageProps) {
     (bloquinho: BlocoProps) => bloquinho.id == blocoId
   );
 
-  console.log("Bloco atula", blocoAtual);
-
   if (!blocoAtual) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -53,17 +48,7 @@ export default async function Bloco(props: PageProps) {
     );
   }
 
-  const formattedDate = new Date(blocoAtual.date_time).toLocaleDateString(
-    "pt-BR",
-    {
-      weekday: "long",
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }
-  );
-
-  console.log(formattedDate);
+  const formattedDate = formatDate(blocoAtual.date_time);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -108,7 +93,7 @@ export default async function Bloco(props: PageProps) {
             <span>
               <TicketCheck className="size-8 text-purple-500" />
             </span>
-            <h2 className="font-heading text-3xl">Ingresso</h2>
+            <h2 className="font-heading text-3xl">Valor do Ingresso</h2>
           </div>
           <p className="text-[#333333] font-bold text-pretty">
             {blocoAtual.price === "Grátis"

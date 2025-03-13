@@ -14,12 +14,27 @@ import {
   Search,
 } from "lucide-react";
 
-export default function Bloco() {
+interface PageProps {
+  params: Promise<{
+    cityUrl: string;
+  }>;
+}
+
+export default async function Bloco(props: PageProps) {
+  const cityUrl = (await props.params).cityUrl;
+
+  const response = await fetch(
+    `https://apis.codante.io/api/bloquinhos2025/agenda?city=${cityUrl}`
+  );
+  const blocos = await response.json();
+
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center">
+      <div
+        className={`w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center`}
+      >
         <h1 className="font-heading text-4xl md:text-6xl text-center text-pretty text-yellow-400">
-          Blocos em Joinville
+          Blocos em
         </h1>
       </div>
       <div className="w-full max-w-[1240px] flex flex-col items-center justify-center">
@@ -70,13 +85,16 @@ export default function Bloco() {
             </Select>
           </div>
           <div className="w-full max-w-[1240px] items-center justify-center flex flex-row flex-wrap mt-6 gap-6 ">
-            <Bloquinho
-              id=""
-              title="Teste"
-              date={new Date("2025-02-28T18:00:00.000Z")}
-              neighborhood="Testeaaaaaaaaaaaaaaaaaa"
-              price="Grátis"
-            />
+            {blocos.data.map((bloquinho: any) => (
+              <Bloquinho
+                key={bloquinho.id}
+                title={bloquinho.title}
+                date={bloquinho.date_time}
+                neighborhood={bloquinho.neighborhood}
+                price={bloquinho.price}
+                id={bloquinho.id}
+              />
+            ))}
           </div>
           <div className="flex flex-row w-full justify-center gap-4 mt-16">
             <IconButton>

@@ -5,10 +5,11 @@ import { Footer } from "@/components/footer";
 import { Bloquinho } from "@/components/bloquinho";
 import { Select, SelectIcon, SelectInput } from "@/components/select";
 import { Input, InputIcon, InputRoot } from "@/components/input";
+import { formatDate } from "@/utils/formattedDate";
 
 export default async function Home() {
   const response = await fetch(
-    "https://apis.codante.io/api/bloquinhos2025/agenda?page=1"
+    "https://apis.codante.io/api/bloquinhos2025/agenda"
   );
   const blocos = await response.json();
 
@@ -26,14 +27,14 @@ export default async function Home() {
               </SelectIcon>
               <SelectInput>
                 <option>Selecione a cidade</option>
-                <option value="sao-paulo">São Paulo</option>
-                <option value="rio-de-janeiro">Rio de Janeiro</option>
-                <option value="belo-horizonte">Belo Horizonte</option>
-                <option value="salvador">Salvador</option>
-                <option value="recife-olinda">Recife e Olinda</option>
-                <option value="brasilia">Brasília</option>
-                <option value="fortaleza">Fortaleza</option>
-                <option value="porto-alegre">Porto Alegre</option>
+                <option value="São%20Paulo">São Paulo</option>
+                <option value="Rio%20de%20Janeiro">Rio de Janeiro</option>
+                <option value="Belo%20Horizonte">Belo Horizonte</option>
+                <option value="Salvador">Salvador</option>
+                <option value="Recife">Recife e Olinda</option>
+                <option value="Brasilia">Brasília</option>
+                <option value="Fortaleza">Fortaleza</option>
+                <option value="Porto%20Alegre">Porto Alegre</option>
               </SelectInput>
             </Select>
             <Select>
@@ -67,7 +68,7 @@ export default async function Home() {
               <Bloquinho
                 key={bloquinho.id}
                 title={bloquinho.title}
-                date={new Date("2025-02-28T18:00:00.000Z")}
+                date={bloquinho.date_time}
                 neighborhood={bloquinho.neighborhood}
                 price={bloquinho.price}
                 id={bloquinho.id}
@@ -75,25 +76,6 @@ export default async function Home() {
             ))}
           </div>
           <Cidades />
-          <div className="max-w-[1240px] mx-auto px-6 mt-20">
-            <SectionHeading title="Blocos Grátis em Joinville" link="#" />
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6 gap-6">
-              {blocos.data.slice(0, 4).map((bloquinho: any) => (
-                <Bloquinho
-                  key={bloquinho.id}
-                  title={bloquinho.title}
-                  date={new Date("2025-02-28T18:00:00.000Z")}
-                  neighborhood={bloquinho.neighborhood}
-                  price={bloquinho.price}
-                  id={bloquinho.id}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="max-w-[1240px] mx-auto px-6 mt-20">
-            <SectionHeading title="Blocos Pagos em Joinville" link="#" />
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-6 gap-6"></div>
-          </div>
         </div>
       </div>
       <Footer />
