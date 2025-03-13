@@ -5,13 +5,28 @@ import { Footer } from "@/components/footer";
 import { Bloquinho } from "@/components/bloquinho";
 import { Select, SelectIcon, SelectInput } from "@/components/select";
 import { Input, InputIcon, InputRoot } from "@/components/input";
-import { formatDate } from "@/utils/formattedDate";
+import axios from "axios";
 
-export default async function Home() {
-  const response = await fetch(
-    "https://apis.codante.io/api/bloquinhos2025/agenda"
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: {
+    search?: string;
+    status?: string;
+    sort?: string;
+  };
+}) {
+  const response = await axios.get(
+    "https://apis.codante.io/api/bloquinhos2025/agenda",
+    {
+      params: {
+        search: searchParams?.search,
+        status: searchParams?.status,
+        sort: searchParams?.sort,
+      },
+    }
   );
-  const blocos = await response.json();
+  const blocos = response.data.data;
 
   return (
     <div className="">
@@ -64,7 +79,7 @@ export default async function Home() {
         <div className="max-w-[1240px] mx-auto px-6 mt-20">
           <SectionHeading title="Próximos Blocos em Joinville" />
           <div className="flex flex-row flex-wrap mt-6 gap-6 ">
-            {blocos.data.map((bloquinho: any) => (
+            {blocos.map((bloquinho: any) => (
               <Bloquinho
                 key={bloquinho.id}
                 title={bloquinho.title}
