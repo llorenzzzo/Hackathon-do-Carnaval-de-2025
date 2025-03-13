@@ -47,12 +47,6 @@ export default function RootLayout({
                 >
                   Home
                 </Link>
-                <Link
-                  className="hover:underline hover:text-yellow-200"
-                  href="/agenda"
-                >
-                  Agenda
-                </Link>
               </div>
             </nav>
           </div>
