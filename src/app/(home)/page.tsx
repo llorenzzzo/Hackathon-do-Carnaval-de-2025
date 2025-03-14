@@ -3,16 +3,18 @@ import { Cidades } from "./cidades";
 import { SectionHeading } from "@/components/section-heading";
 import { Footer } from "@/components/footer";
 import { Bloquinho } from "@/components/bloquinho";
-import { Select, SelectIcon, SelectInput } from "@/components/select";
-import { Input, InputIcon, InputRoot } from "@/components/input";
+import { Select, SelectIcon, SelectInput } from "@/components/base/select";
+import { Input, InputIcon, InputRoot } from "@/components/base/input";
 import axios from "axios";
+import { SelectCity } from "@/components/selectCity";
+import { SearchInput } from "@/components/searchInput";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams?: {
+    city?: string;
     search?: string;
-    status?: string;
     sort?: string;
   };
 }) {
@@ -20,8 +22,8 @@ export default async function Home({
     "https://apis.codante.io/api/bloquinhos2025/agenda",
     {
       params: {
+        city: searchParams?.city,
         search: searchParams?.search,
-        status: searchParams?.status,
         sort: searchParams?.sort,
       },
     }
@@ -36,22 +38,7 @@ export default async function Home({
             Encontre seu bloquinho de carnaval
           </h1>
           <div className="flex flex-row gap-4 justify-between">
-            <Select>
-              <SelectIcon>
-                <MapPin />
-              </SelectIcon>
-              <SelectInput>
-                <option>Selecione a cidade</option>
-                <option value="São%20Paulo">São Paulo</option>
-                <option value="Rio%20de%20Janeiro">Rio de Janeiro</option>
-                <option value="Belo%20Horizonte">Belo Horizonte</option>
-                <option value="Salvador">Salvador</option>
-                <option value="Recife">Recife e Olinda</option>
-                <option value="Brasilia">Brasília</option>
-                <option value="Fortaleza">Fortaleza</option>
-                <option value="Porto%20Alegre">Porto Alegre</option>
-              </SelectInput>
-            </Select>
+            <SelectCity />
             <Select>
               <SelectIcon>
                 <Calendar />
@@ -61,17 +48,7 @@ export default async function Home({
                 <option>1</option>
               </SelectInput>
             </Select>
-            <InputRoot>
-              <InputIcon>
-                <Search />
-              </InputIcon>
-              <Input
-                type="text"
-                name="data"
-                id="select-data"
-                placeholder="Busque por blocos na cidade escolhida"
-              ></Input>
-            </InputRoot>
+            <SearchInput />
           </div>
         </div>
       </div>

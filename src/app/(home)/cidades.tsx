@@ -1,4 +1,4 @@
-import { City, CityIcon } from "@/components/city";
+import { City, CityIcon } from "@/components/base/city";
 import { Building2 } from "lucide-react";
 
 export function Cidades() {

@@ -1,9 +1,9 @@
 import { Cidades } from "@/app/(home)/cidades";
 import { Bloquinho } from "@/components/bloquinho";
 import { Footer } from "@/components/footer";
-import { IconButton } from "@/components/iconButton";
-import { Input, InputIcon, InputRoot } from "@/components/input";
-import { Select, SelectIcon, SelectInput } from "@/components/select";
+import { IconButton } from "@/components/base/iconButton";
+import { Input, InputIcon, InputRoot } from "@/components/base/input";
+import { Select, SelectIcon, SelectInput } from "@/components/base/select";
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,6 +13,9 @@ import {
   MapPinned,
   Search,
 } from "lucide-react";
+import axios from "axios";
+import { SearchInput } from "@/components/searchInput";
+import { SortBlocos } from "@/components/sort";
 
 interface PageProps {
   params: Promise<{
@@ -20,13 +23,26 @@ interface PageProps {
   }>;
 }
 
-export default async function Bloco(props: PageProps) {
-  const cityUrl = (await props.params).cityUrl;
-
-  const response = await fetch(
-    `https://apis.codante.io/api/bloquinhos2025/agenda?city=${cityUrl}`
+export default async function Bloco({
+  searchParams,
+}: {
+  searchParams?: {
+    city?: string;
+    search?: string;
+    sort?: string;
+  };
+}) {
+  const response = await axios.get(
+    "https://apis.codante.io/api/bloquinhos2025/agenda",
+    {
+      params: {
+        city: searchParams?.city,
+        search: searchParams?.search,
+        sort: searchParams?.sort,
+      },
+    }
   );
-  const blocos = await response.json();
+  const blocos = response.data.data;
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -40,17 +56,7 @@ export default async function Bloco(props: PageProps) {
       <div className="w-full max-w-[1240px] flex flex-col items-center justify-center">
         <div className="w-full flex justify-center md:justify-between mt-21 flex-wrap gap-3">
           <div className="w-full flex flex-row flex-wrap gap-3 justify-start">
-            <InputRoot>
-              <InputIcon>
-                <Search />
-              </InputIcon>
-              <Input
-                type="text"
-                name="data"
-                id="select-data"
-                placeholder="Busque por blocos na cidade escolhida"
-              ></Input>
-            </InputRoot>
+            <SearchInput />
             <Select>
               <SelectIcon>
                 <Calendar />
@@ -71,21 +77,10 @@ export default async function Bloco(props: PageProps) {
                 <option>2</option>
               </SelectInput>
             </Select>
-            <Select>
-              <SelectIcon>
-                <ListFilter />
-              </SelectIcon>
-              <SelectInput>
-                <option disabled selected>
-                  Ordenar
-                </option>
-                <option>Mais próximos</option>
-                <option>2</option>
-              </SelectInput>
-            </Select>
+            <SortBlocos />
           </div>
           <div className="w-full max-w-[1240px] items-center justify-center flex flex-row flex-wrap mt-6 gap-6 ">
-            {blocos.data.map((bloquinho: any) => (
+            {blocos.map((bloquinho: any) => (
               <Bloquinho
                 key={bloquinho.id}
                 title={bloquinho.title}

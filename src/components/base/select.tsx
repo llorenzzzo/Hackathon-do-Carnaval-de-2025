@@ -21,8 +21,16 @@ export function SelectIcon(props: SelectIconProps) {
   return <span className="text-purple-300 cursor-pointer" {...props}></span>;
 }
 
-interface SelectInputProps extends ComponentProps<"select"> {}
+interface SelectInputProps extends ComponentProps<"select"> {
+  onChange?: any;
+}
 
-export function SelectInput(props: SelectInputProps) {
-  return <select className="outline-0 cursor-pointer" {...props}></select>;
+export function SelectInput({ onChange, ...props }: SelectInputProps) {
+  return (
+    <select
+      onChange={onChange}
+      className="outline-0 cursor-pointer"
+      {...props}
+    ></select>
+  );
 }
