@@ -2,20 +2,12 @@ import { Cidades } from "@/app/(home)/cidades";
 import { Bloquinho } from "@/components/bloquinho";
 import { Footer } from "@/components/footer";
 import { IconButton } from "@/components/base/iconButton";
-import { Input, InputIcon, InputRoot } from "@/components/base/input";
 import { Select, SelectIcon, SelectInput } from "@/components/base/select";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Calendar,
-  ListFilter,
-  MapPin,
-  MapPinned,
-  Search,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, MapPinned } from "lucide-react";
 import axios from "axios";
 import { SearchInput } from "@/components/searchInput";
 import { SortBlocos } from "@/components/sort";
+import { DateSelector } from "@/components/dateSelector";
 
 interface PageProps {
   params: Promise<{
@@ -30,19 +22,36 @@ export default async function Bloco({
     city?: string;
     search?: string;
     sort?: string;
+    date_time?: string;
   };
 }) {
   const response = await axios.get(
-    "https://apis.codante.io/api/bloquinhos2025/agenda",
+    `{https://apis.codante.io/api/bloquinhos2025/agenda?city=${cityUrl}`,
     {
       params: {
         city: searchParams?.city,
         search: searchParams?.search,
         sort: searchParams?.sort,
+        date: searchParams?.date_time,
       },
     }
   );
   const blocos = response.data.data;
+
+  const cityTexts: Record<string, string> = {
+    "São Paulo": "em São Paulo",
+    "Rio de Janeiro": "no Rio de Janeiro",
+    "Belo Horizonte": "em Belo Horizonte",
+    Salvador: "em Salvador",
+    Recife: "em Recife e Olinda",
+    Brasilia: "em Brasília",
+  };
+
+  const defaultText = "em todas as cidades";
+
+  const cityText = searchParams?.city
+    ? cityTexts[searchParams?.city] || `em ${searchParams?.city}`
+    : defaultText;
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -50,22 +59,14 @@ export default async function Bloco({
         className={`w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center`}
       >
         <h1 className="font-heading text-4xl md:text-6xl text-center text-pretty text-yellow-400">
-          Blocos em
+          {`Próximos Blocos ${cityText}`}
         </h1>
       </div>
       <div className="w-full max-w-[1240px] flex flex-col items-center justify-center">
         <div className="w-full flex justify-center md:justify-between mt-21 flex-wrap gap-3">
           <div className="w-full flex flex-row flex-wrap gap-3 justify-start">
             <SearchInput />
-            <Select>
-              <SelectIcon>
-                <Calendar />
-              </SelectIcon>
-              <SelectInput>
-                <option>Selecione a data</option>
-                <option>2</option>
-              </SelectInput>
-            </Select>
+            <DateSelector />
             <Select>
               <SelectIcon>
                 <MapPinned />

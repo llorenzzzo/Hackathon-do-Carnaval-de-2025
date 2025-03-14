@@ -29,7 +29,7 @@ export function SelectInput({ onChange, ...props }: SelectInputProps) {
   return (
     <select
       onChange={onChange}
-      className="outline-0 cursor-pointer"
+      className="outline-0 cursor-pointer appearance-none focus:text-purple-50 bg-purple-800"
       {...props}
     ></select>
   );

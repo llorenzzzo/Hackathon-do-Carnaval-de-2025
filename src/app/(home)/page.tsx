@@ -4,10 +4,10 @@ import { SectionHeading } from "@/components/section-heading";
 import { Footer } from "@/components/footer";
 import { Bloquinho } from "@/components/bloquinho";
 import { Select, SelectIcon, SelectInput } from "@/components/base/select";
-import { Input, InputIcon, InputRoot } from "@/components/base/input";
 import axios from "axios";
 import { SelectCity } from "@/components/selectCity";
 import { SearchInput } from "@/components/searchInput";
+import { DateSelector } from "@/components/dateSelector";
 
 export default async function Home({
   searchParams,
@@ -16,6 +16,7 @@ export default async function Home({
     city?: string;
     search?: string;
     sort?: string;
+    date_time?: string;
   };
 }) {
   const response = await axios.get(
@@ -25,10 +26,26 @@ export default async function Home({
         city: searchParams?.city,
         search: searchParams?.search,
         sort: searchParams?.sort,
+        date: searchParams?.date_time,
       },
     }
   );
   const blocos = response.data.data;
+
+  const cityTexts: Record<string, string> = {
+    "São Paulo": "em São Paulo",
+    "Rio de Janeiro": "no Rio de Janeiro",
+    "Belo Horizonte": "em Belo Horizonte",
+    Salvador: "em Salvador",
+    Recife: "em Recife e Olinda",
+    Brasilia: "em Brasília",
+  };
+
+  const defaultText = "em todas as cidades";
+
+  const cityText = searchParams?.city
+    ? cityTexts[searchParams?.city] || `em ${searchParams?.city}`
+    : defaultText;
 
   return (
     <div className="">
@@ -39,22 +56,14 @@ export default async function Home({
           </h1>
           <div className="flex flex-row gap-4 justify-between">
             <SelectCity />
-            <Select>
-              <SelectIcon>
-                <Calendar />
-              </SelectIcon>
-              <SelectInput>
-                <option>Selecione a data</option>
-                <option>1</option>
-              </SelectInput>
-            </Select>
+            <DateSelector />
             <SearchInput />
           </div>
         </div>
       </div>
-      <div className="w-full">
+      <div id="blocos-section" className="w-full">
         <div className="max-w-[1240px] mx-auto px-6 mt-20">
-          <SectionHeading title="Próximos Blocos em Joinville" />
+          <SectionHeading title={`Próximos Blocos ${cityText}`} />
           <div className="flex flex-row flex-wrap mt-6 gap-6 ">
             {blocos.map((bloquinho: any) => (
               <Bloquinho

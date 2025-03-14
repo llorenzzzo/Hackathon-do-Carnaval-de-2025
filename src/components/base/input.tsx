@@ -23,7 +23,7 @@ interface InputProps extends ComponentProps<"input"> {}
 export function Input(props: InputProps) {
   return (
     <input
-      className="outline-0 w-full placeholder-purple-300 text-sm"
+      className="outline-0 w-full appearance-none bg-purple-800 focus:text-purple-50 placeholder-purple-300 text-sm"
       {...props}
     ></input>
   );

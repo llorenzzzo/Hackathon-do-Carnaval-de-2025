@@ -1,4 +1,5 @@
 "use client";
+
 import { MapPin } from "lucide-react";
 import { Select, SelectIcon, SelectInput } from "./base/select";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
@@ -19,7 +20,11 @@ export function SelectCity() {
     } else {
       params.delete("city");
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+    const blocosSection = document.getElementById("blocos-section");
+    if (blocosSection) {
+      blocosSection.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   return (
@@ -27,10 +32,11 @@ export function SelectCity() {
       <SelectIcon>
         <MapPin />
       </SelectIcon>
-      <SelectInput onChange={handleChangeFilter}>
-        <option disabled selected>
-          Selecione a cidade
-        </option>
+      <SelectInput
+        defaultValue="Selecione a cidade"
+        onChange={handleChangeFilter}
+      >
+        <option value="">Todas as cidades</option>
         <option value="São Paulo">São Paulo</option>
         <option value="Rio de Janeiro">Rio de Janeiro</option>
         <option value="Belo Horizonte">Belo Horizonte</option>
