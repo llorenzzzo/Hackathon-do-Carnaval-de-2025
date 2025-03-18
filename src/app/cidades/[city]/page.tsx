@@ -9,12 +9,6 @@ import { SearchInput } from "@/components/searchInput";
 import { SortBlocos } from "@/components/sort";
 import { DateSelector } from "@/components/dateSelector";
 
-interface PageProps {
-  params: Promise<{
-    cityUrl: string;
-  }>;
-}
-
 export default async function Bloco({
   searchParams,
 }: {
@@ -26,7 +20,7 @@ export default async function Bloco({
   };
 }) {
   const response = await axios.get(
-    `{https://apis.codante.io/api/bloquinhos2025/agenda?city=${cityUrl}`,
+    `{https://apis.codante.io/api/bloquinhos2025/agenda?city=`,
     {
       params: {
         city: searchParams?.city,

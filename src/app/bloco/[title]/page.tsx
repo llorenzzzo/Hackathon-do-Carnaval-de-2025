@@ -10,14 +10,9 @@ import {
 import { Badge, BadgeIcon } from "./badge";
 import Link from "next/link";
 import { formatDate } from "@/utils/formattedDate";
+import axios from "axios";
 
-interface PageProps {
-  params: Promise<{
-    blocoId: string;
-  }>;
-}
-
-interface BlocoProps {
+interface BlocoAtual {
   id: string;
   title: string;
   description: string;
@@ -25,52 +20,48 @@ interface BlocoProps {
   price: string;
 }
 
-export default async function Bloco(props: PageProps) {
-  const { blocoId } = await props.params;
-
-  const response = await fetch(
-    "https://apis.codante.io/api/bloquinhos2025/agenda/"
-  );
-  const blocos = await response.json();
-
-  const blocoAtual = blocos.data.find(
-    (bloquinho: BlocoProps) => bloquinho.id == blocoId
+async function getBlocoByTitle(title: string) {
+  const response = await axios.get(
+    `https://apis.codante.io/api/bloquinhos2025/agenda?search=rataria+lunatica`
   );
 
-  if (!blocoAtual) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-2xl font-bold">Bloco não encontrado</h1>
-        <Link href="/" className="mt-4 text-purple-500 hover:underline">
-          Voltar para a página inicial
-        </Link>
-      </div>
-    );
-  }
+  // add searchParams com ?search para encontrar o bloco
 
-  const formattedDate = formatDate(blocoAtual.date_time);
+  console.log(response);
+
+  const BlocoAtual = response.data[0];
+  console.log("Bloco ATUAL", BlocoAtual);
+  return BlocoAtual;
+}
+
+export default async function Bloco({
+  params: { title },
+}: {
+  params: { title: string };
+}) {
+  // const BlocoAtual: BlocoAtual = await getBlocoByTitle(title);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-full h-[300px] bg-purple-900 flex flex-col items-center justify-center md:px-5 px-5 lg:px-0">
         <div className="w-full max-w-[1240px] flex flex-col items-start justify-center gap-3">
           <h1 className="font-heading text-2xl md:text-4xl text-start text-pretty text-yellow-400">
-            {blocoAtual.title}
+            {/* {BlocoAtual.title} */}
           </h1>
           <div className="space-y-2">
-            {blocoAtual.date_time && (
+            {/* {blocoAtual.date_time && (
               <Badge info={formattedDate}>
                 <BadgeIcon>
                   <Calendar className="size-5 text-purple-200" />
                 </BadgeIcon>
               </Badge>
-            )}
-            <Badge info={blocoAtual.neighborhood}>
+            )} */}
+            <Badge info="Bairro">
               <BadgeIcon>
                 <MapPin className="size-5 text-purple-200" />
               </BadgeIcon>
             </Badge>
-            <Badge info={blocoAtual.price}>
+            <Badge info="Preço">
               <BadgeIcon>
                 <Ticket className="size-5 text-purple-200" />
               </BadgeIcon>
@@ -86,7 +77,7 @@ export default async function Bloco(props: PageProps) {
             </span>
             <h2 className="font-heading text-3xl">Descrição</h2>
           </div>
-          <p className="text-[#333333] text-pretty">{blocoAtual.description}</p>
+          <p className="text-[#333333] text-pretty">"BlocoAtual.description"</p>
         </div>
         <div className="w-full space-y-4">
           <div className="flex flex-row gap-2 items-center justify-start">
@@ -95,13 +86,9 @@ export default async function Bloco(props: PageProps) {
             </span>
             <h2 className="font-heading text-3xl">Valor do Ingresso</h2>
           </div>
-          <p className="text-[#333333] font-bold text-pretty">
-            {blocoAtual.price === "Grátis"
-              ? blocoAtual.price
-              : `R$${blocoAtual.price}`}
-          </p>
+          <p className="text-[#333333] font-bold text-pretty">Preço</p>
         </div>
-        {blocoAtual.date_time && (
+        {/* {blocoAtual.date_time && (
           <div className="w-full space-y-4">
             <div className="flex flex-row gap-2 items-center justify-start">
               <span>
@@ -111,13 +98,13 @@ export default async function Bloco(props: PageProps) {
             </div>
             <Link
               className="text-[#333333] font-bold text-pretty hover:underline"
-              href={blocoAtual.event_url}
+              href="{blocoAtual.event_url}"
               target="_blank"
             >
               Veja mais
             </Link>
           </div>
-        )}
+        )} */}
       </div>
       <Footer />
     </div>
