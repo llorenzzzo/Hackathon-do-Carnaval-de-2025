@@ -12,6 +12,12 @@ import Link from "next/link";
 import { formatDate } from "@/utils/formattedDate";
 import axios from "axios";
 
+interface BlocoPageProps {
+  params: Promise<{
+    title: string;
+  }>;
+}
+
 interface BlocoAtual {
   id: string;
   title: string;
@@ -20,48 +26,41 @@ interface BlocoAtual {
   price: string;
 }
 
-async function getBlocoByTitle(title: string) {
+export default async function Bloco(props: BlocoPageProps) {
+  const { title } = await props.params;
+
+  // console.log(title);
+
   const response = await axios.get(
-    `https://apis.codante.io/api/bloquinhos2025/agenda?search=rataria+lunatica`
+    `https://apis.codante.io/api/bloquinhos2025/agenda?search=${title}`
   );
 
-  // add searchParams com ?search para encontrar o bloco
+  const blocoAtual = response.data.data[0];
+  // console.log("Bloco ATUAL", blocoAtual);
 
-  console.log(response);
-
-  const BlocoAtual = response.data[0];
-  console.log("Bloco ATUAL", BlocoAtual);
-  return BlocoAtual;
-}
-
-export default async function Bloco({
-  params: { title },
-}: {
-  params: { title: string };
-}) {
-  // const BlocoAtual: BlocoAtual = await getBlocoByTitle(title);
+  const formattedDate = formatDate(blocoAtual.date_time);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-full h-[300px] bg-purple-900 flex flex-col items-center justify-center md:px-5 px-5 lg:px-0">
         <div className="w-full max-w-[1240px] flex flex-col items-start justify-center gap-3">
           <h1 className="font-heading text-2xl md:text-4xl text-start text-pretty text-yellow-400">
-            {/* {BlocoAtual.title} */}
+            {blocoAtual.title}
           </h1>
           <div className="space-y-2">
-            {/* {blocoAtual.date_time && (
+            {blocoAtual.date_time && (
               <Badge info={formattedDate}>
                 <BadgeIcon>
                   <Calendar className="size-5 text-purple-200" />
                 </BadgeIcon>
               </Badge>
-            )} */}
-            <Badge info="Bairro">
+            )}
+            <Badge info={blocoAtual.neighborhood}>
               <BadgeIcon>
                 <MapPin className="size-5 text-purple-200" />
               </BadgeIcon>
             </Badge>
-            <Badge info="Preço">
+            <Badge info={blocoAtual.price}>
               <BadgeIcon>
                 <Ticket className="size-5 text-purple-200" />
               </BadgeIcon>
@@ -77,7 +76,7 @@ export default async function Bloco({
             </span>
             <h2 className="font-heading text-3xl">Descrição</h2>
           </div>
-          <p className="text-[#333333] text-pretty">"BlocoAtual.description"</p>
+          <p className="text-[#333333] text-pretty">{blocoAtual.description}</p>
         </div>
         <div className="w-full space-y-4">
           <div className="flex flex-row gap-2 items-center justify-start">
@@ -86,9 +85,11 @@ export default async function Bloco({
             </span>
             <h2 className="font-heading text-3xl">Valor do Ingresso</h2>
           </div>
-          <p className="text-[#333333] font-bold text-pretty">Preço</p>
+          <p className="text-[#333333] font-bold text-pretty">
+            {blocoAtual.price}
+          </p>
         </div>
-        {/* {blocoAtual.date_time && (
+        {blocoAtual.date_time && (
           <div className="w-full space-y-4">
             <div className="flex flex-row gap-2 items-center justify-start">
               <span>
@@ -104,7 +105,7 @@ export default async function Bloco({
               Veja mais
             </Link>
           </div>
-        )} */}
+        )}
       </div>
       <Footer />
     </div>

@@ -23,7 +23,7 @@ export function Bloquinho({
 }: BloquinhoProps) {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`/bloco/${id}`);
+    router.push(`/bloco/${title}`);
   };
 
   const formattedDate = formatDate(date);

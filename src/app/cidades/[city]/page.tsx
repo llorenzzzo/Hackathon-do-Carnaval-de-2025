@@ -10,20 +10,36 @@ import { SortBlocos } from "@/components/sort";
 import { DateSelector } from "@/components/dateSelector";
 
 export default async function Bloco({
+  params,
   searchParams,
 }: {
+  params: { city: string };
   searchParams?: {
-    city?: string;
     search?: string;
     sort?: string;
     date_time?: string;
   };
 }) {
+  const { city } = params;
+
+  const cityTexts: Record<string, string> = {
+    "São Paulo": "Blocos em São Paulo",
+    "Rio de Janeiro": "Blocos no Rio de Janeiro",
+    "Belo Horizonte": "Blocos em Belo Horizonte",
+    Salvador: "Blocos em Salvador",
+    Recife: "Blocos em Recife e Olinda",
+    Brasilia: "Blocos em Brasília",
+    Fortaleza: "Blocos em Fortaleza",
+    "Porto Alegre": "Blocos em Porto Alegre",
+    default: `Confira os bloquinhos em ${city}!`, // Texto padrão
+  };
+
+  const pageTitle = cityTexts[decodeURI(city)] || cityTexts.default;
+
   const response = await axios.get(
-    `{https://apis.codante.io/api/bloquinhos2025/agenda?city=`,
+    `https://apis.codante.io/api/bloquinhos2025/agenda?city=${city}`,
     {
       params: {
-        city: searchParams?.city,
         search: searchParams?.search,
         sort: searchParams?.sort,
         date: searchParams?.date_time,
@@ -32,28 +48,11 @@ export default async function Bloco({
   );
   const blocos = response.data.data;
 
-  const cityTexts: Record<string, string> = {
-    "São Paulo": "em São Paulo",
-    "Rio de Janeiro": "no Rio de Janeiro",
-    "Belo Horizonte": "em Belo Horizonte",
-    Salvador: "em Salvador",
-    Recife: "em Recife e Olinda",
-    Brasilia: "em Brasília",
-  };
-
-  const defaultText = "em todas as cidades";
-
-  const cityText = searchParams?.city
-    ? cityTexts[searchParams?.city] || `em ${searchParams?.city}`
-    : defaultText;
-
   return (
     <div className="flex flex-col justify-center items-center">
-      <div
-        className={`w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center`}
-      >
+      <div className="w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center">
         <h1 className="font-heading text-4xl md:text-6xl text-center text-pretty text-yellow-400">
-          {`Próximos Blocos ${cityText}`}
+          {pageTitle}
         </h1>
       </div>
       <div className="w-full max-w-[1240px] flex flex-col items-center justify-center">

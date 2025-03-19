@@ -1,9 +1,7 @@
-import { Calendar, MapPin, Search } from "lucide-react";
 import { Cidades } from "./cidades";
 import { SectionHeading } from "@/components/section-heading";
 import { Footer } from "@/components/footer";
 import { Bloquinho } from "@/components/bloquinho";
-import { Select, SelectIcon, SelectInput } from "@/components/base/select";
 import axios from "axios";
 import { SelectCity } from "@/components/selectCity";
 import { SearchInput } from "@/components/searchInput";
@@ -65,16 +63,28 @@ export default async function Home({
         <div className="max-w-[1240px] mx-auto px-6 mt-20">
           <SectionHeading title={`Próximos Blocos ${cityText}`} />
           <div className="flex flex-row flex-wrap mt-6 gap-6 ">
-            {blocos.map((bloquinho: any) => (
-              <Bloquinho
-                key={bloquinho.id}
-                title={bloquinho.title}
-                date={bloquinho.date_time}
-                neighborhood={bloquinho.neighborhood}
-                price={bloquinho.price}
-                id={bloquinho.id}
-              />
-            ))}
+            {blocos.length > 0 ? (
+              blocos.map((bloquinho: any) => (
+                <Bloquinho
+                  key={bloquinho.id}
+                  title={bloquinho.title}
+                  date={bloquinho.date_time}
+                  neighborhood={bloquinho.neighborhood}
+                  price={bloquinho.price}
+                  id={bloquinho.id}
+                />
+              ))
+            ) : (
+              <div className="space-y-2">
+                <p className="font-heading text-3xl">Oops!</p>
+                <div>
+                  <p>
+                    Não encontramos nenhum bloco. Ajuste a busca e tente
+                    novamente.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
           <Cidades />
         </div>
