@@ -17,7 +17,7 @@ export function Badge({ info, children, ...props }: BadgeProps) {
   );
 }
 
-interface BadgeIconProps extends ComponentProps<"span"> {}
+type BadgeIconProps = ComponentProps<"span">;
 
 export function BadgeIcon(props: BadgeIconProps) {
   return <span {...props} />;

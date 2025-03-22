@@ -1,9 +1,8 @@
 import { Cidades } from "@/app/(home)/cidades";
 import { Bloquinho } from "@/components/bloquinho";
 import { Footer } from "@/components/footer";
-import { IconButton } from "@/components/base/iconButton";
-import { Select, SelectIcon, SelectInput } from "@/components/base/select";
-import { ArrowLeft, ArrowRight, Calendar, MapPinned } from "lucide-react";
+import { Select, SelectIcon } from "@/components/base/select";
+import { MapPinned } from "lucide-react";
 import axios from "axios";
 import { SearchInput } from "@/components/searchInput";
 import { SortBlocos } from "@/components/sort";
@@ -72,12 +71,6 @@ export default async function Bloco({
               <SelectIcon>
                 <MapPinned />
               </SelectIcon>
-              <SelectInput>
-                <option disabled selected>
-                  Filtrar por bairro
-                </option>
-                <option>2</option>
-              </SelectInput>
             </Select>
             <SortBlocos />
           </div>

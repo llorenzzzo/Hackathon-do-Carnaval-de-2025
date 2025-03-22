@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Search } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { InputRoot, InputIcon, Input } from "./base/input";
 

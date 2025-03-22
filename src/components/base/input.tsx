@@ -1,4 +1,3 @@
-import { Search } from "lucide-react";
 import { ComponentProps } from "react";
 
 interface InputRootProps extends ComponentProps<"div"> {}
