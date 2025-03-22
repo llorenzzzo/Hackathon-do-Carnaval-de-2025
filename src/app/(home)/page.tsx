@@ -8,9 +8,7 @@ import { SearchInput } from "@/components/searchInput";
 import { DateSelector } from "@/components/dateSelector";
 import { Pagination } from "@/components/pagination";
 
-export default async function Home({
-  searchParams,
-}: {
+interface PageProps {
   searchParams?: {
     city?: string;
     search?: string;
@@ -18,7 +16,9 @@ export default async function Home({
     date_time?: string;
     page?: number;
   };
-}) {
+}
+
+export default async function Home({ searchParams }: PageProps) {
   const response = await axios.get(
     "https://apis.codante.io/api/bloquinhos2025/agenda",
     {
