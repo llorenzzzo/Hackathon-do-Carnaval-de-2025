@@ -23,7 +23,7 @@ export function City({ city, cityUrl, children, ...props }: CityProps) {
   );
 }
 
-interface CityIconProps extends ComponentProps<"span"> {}
+type CityIconProps = ComponentProps<"span">;
 
 export function CityIcon(props: CityIconProps) {
   return <span className="text-purple-500" {...props}></span>;

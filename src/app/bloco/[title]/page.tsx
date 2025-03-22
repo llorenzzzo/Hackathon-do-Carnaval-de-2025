@@ -18,13 +18,13 @@ interface BlocoPageProps {
   }>;
 }
 
-interface BlocoAtual {
-  id: string;
-  title: string;
-  description: string;
-  neighborhood: string;
-  price: string;
-}
+// type BlocoAtual {
+//   id: string;
+//   title: string;
+//   description: string;
+//   neighborhood: string;
+//   price: string;
+// }
 
 export default async function Bloco(props: BlocoPageProps) {
   const { title } = await props.params;

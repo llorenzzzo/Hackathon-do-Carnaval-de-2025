@@ -9,6 +9,15 @@ import { SortBlocos } from "@/components/sort";
 import { DateSelector } from "@/components/dateSelector";
 import { Pagination } from "@/components/pagination";
 
+type BlocoProps = {
+  id: string;
+  title: string;
+  date_time: string;
+  description: string;
+  neighborhood: string;
+  price: string;
+};
+
 export default async function Bloco({
   params,
   searchParams,
@@ -75,7 +84,7 @@ export default async function Bloco({
             <SortBlocos />
           </div>
           <div className="w-full max-w-[1240px] items-center justify-center flex flex-row flex-wrap mt-6 gap-6 ">
-            {blocos.map((bloquinho: any) => (
+            {blocos.map((bloquinho: BlocoProps) => (
               <Bloquinho
                 key={bloquinho.id}
                 title={bloquinho.title}

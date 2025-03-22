@@ -15,7 +15,7 @@ export function Select({ children, ...props }: SelectProps) {
   );
 }
 
-interface SelectIconProps extends ComponentProps<"span"> {}
+type SelectIconProps = ComponentProps<"span">;
 
 export function SelectIcon(props: SelectIconProps) {
   return <span className="text-purple-300 cursor-pointer" {...props}></span>;

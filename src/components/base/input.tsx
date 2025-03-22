@@ -11,13 +11,13 @@ export function InputRoot(props: InputRootProps) {
   );
 }
 
-interface InputIconProps extends ComponentProps<"span"> {}
+type InputIconProps = ComponentProps<"span">;
 
 export function InputIcon(props: InputIconProps) {
   return <span {...props}></span>;
 }
 
-interface InputProps extends ComponentProps<"input"> {}
+type InputProps = ComponentProps<"input">;
 
 export function Input(props: InputProps) {
   return (
