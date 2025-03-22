@@ -6,6 +6,7 @@ import axios from "axios";
 import { SelectCity } from "@/components/selectCity";
 import { SearchInput } from "@/components/searchInput";
 import { DateSelector } from "@/components/dateSelector";
+import { Pagination } from "@/components/pagination";
 
 export default async function Home({
   searchParams,
@@ -15,6 +16,7 @@ export default async function Home({
     search?: string;
     sort?: string;
     date_time?: string;
+    page?: number;
   };
 }) {
   const response = await axios.get(
@@ -25,10 +27,16 @@ export default async function Home({
         search: searchParams?.search,
         sort: searchParams?.sort,
         date: searchParams?.date_time,
+        page: searchParams?.page,
       },
     }
   );
   const blocos = response.data.data;
+  const maxPage = response.data.meta.last_page;
+  let links: { url: string; label: string; active: boolean; id: number }[] =
+    response.data.meta.links;
+
+  links = links.map((link, index) => ({ ...link, id: index }));
 
   const cityTexts: Record<string, string> = {
     "São Paulo": "em São Paulo",
@@ -85,6 +93,9 @@ export default async function Home({
                 </div>
               </div>
             )}
+            <div className="flex flex-row w-full justify-center gap-4 mt-16">
+              <Pagination links={links} maxPage={maxPage} />
+            </div>
           </div>
           <Cidades />
         </div>

@@ -8,6 +8,7 @@ import axios from "axios";
 import { SearchInput } from "@/components/searchInput";
 import { SortBlocos } from "@/components/sort";
 import { DateSelector } from "@/components/dateSelector";
+import { Pagination } from "@/components/pagination";
 
 export default async function Bloco({
   params,
@@ -18,6 +19,7 @@ export default async function Bloco({
     search?: string;
     sort?: string;
     date_time?: string;
+    page?: number;
   };
 }) {
   const { city } = params;
@@ -43,14 +45,20 @@ export default async function Bloco({
         search: searchParams?.search,
         sort: searchParams?.sort,
         date: searchParams?.date_time,
+        page: searchParams?.page,
       },
     }
   );
   const blocos = response.data.data;
+  const maxPage = response.data.meta.last_page;
+  let links: { url: string; label: string; active: boolean; id: number }[] =
+    response.data.meta.links;
+
+  links = links.map((link, index) => ({ ...link, id: index }));
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-full h-[87vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center">
+      <div className="w-full h-[50vh] bg-[url(/background-home.png)] bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center">
         <h1 className="font-heading text-4xl md:text-6xl text-center text-pretty text-yellow-400">
           {pageTitle}
         </h1>
@@ -86,12 +94,7 @@ export default async function Bloco({
             ))}
           </div>
           <div className="flex flex-row w-full justify-center gap-4 mt-16">
-            <IconButton>
-              <ArrowLeft />
-            </IconButton>
-            <IconButton>
-              <ArrowRight />
-            </IconButton>
+            <Pagination links={links} maxPage={maxPage} />
           </div>
         </div>
         <Cidades />
