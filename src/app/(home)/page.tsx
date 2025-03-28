@@ -8,17 +8,26 @@ import { SearchInput } from "@/components/searchInput";
 import { DateSelector } from "@/components/dateSelector";
 import { Pagination } from "@/components/pagination";
 
-interface HomeProps {
-  searchParams?: {
-    city?: string;
-    search?: string;
-    sort?: string;
-    date_time?: string;
-    page?: string; // Changed to string
-  };
-}
+type BlocoProps = {
+  id: string;
+  title: string;
+  date_time: string;
+  description: string;
+  neighborhood: string;
+  price: string;
+};
 
-export default async function Home({ searchParams }: HomeProps) {
+type SearchParams = Promise<{
+  city?: string;
+  search?: string;
+  sort?: string;
+  date_time?: string;
+  page?: number;
+}>;
+
+export default async function Home(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams;
+
   const response = await axios.get(
     "https://apis.codante.io/api/bloquinhos2025/agenda",
     {
@@ -72,7 +81,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <SectionHeading title={`Próximos Blocos ${cityText}`} />
           <div className="flex flex-row flex-wrap mt-6 gap-6 ">
             {blocos.length > 0 ? (
-              blocos.map((bloquinho: any) => (
+              blocos.map((bloquinho: BlocoProps) => (
                 <Bloquinho
                   key={bloquinho.id}
                   title={bloquinho.title}
