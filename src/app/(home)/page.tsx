@@ -7,23 +7,7 @@ import { SelectCity } from "@/components/selectCity";
 import { SearchInput } from "@/components/searchInput";
 import { DateSelector } from "@/components/dateSelector";
 import { Pagination } from "@/components/pagination";
-
-type BlocoProps = {
-  id: string;
-  title: string;
-  date_time: string;
-  description: string;
-  neighborhood: string;
-  price: string;
-};
-
-type SearchParams = Promise<{
-  city?: string;
-  search?: string;
-  sort?: string;
-  date_time?: string;
-  page?: number;
-}>;
+import { BlocoProps, SearchParams } from "@/app/types/types";
 
 export default async function Home(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;

@@ -8,29 +8,17 @@ import { SearchInput } from "@/components/searchInput";
 import { SortBlocos } from "@/components/sort";
 import { DateSelector } from "@/components/dateSelector";
 import { Pagination } from "@/components/pagination";
+import { BlocoProps, SearchParams } from "@/app/types/types";
 
-type BlocoProps = {
-  id: string;
-  title: string;
-  date_time: string;
-  description: string;
-  neighborhood: string;
-  price: string;
-};
+type Params = Promise<{ city: string }>;
 
-export default async function Bloco({
-  params,
-  searchParams,
-}: {
-  params: { city: string };
-  searchParams?: {
-    search?: string;
-    sort?: string;
-    date_time?: string;
-    page?: number;
-  };
+export default async function Bloco(props: {
+  params: Params;
+  searchParams: SearchParams;
 }) {
-  const { city } = params;
+  const params = await props.params;
+  const searchParams = await props.searchParams;
+  const city = params.city;
 
   const cityTexts: Record<string, string> = {
     "São Paulo": "Blocos em São Paulo",
