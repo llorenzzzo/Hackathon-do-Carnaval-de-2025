@@ -35,7 +35,7 @@ export function Pagination({ links, maxPage }: PaginationProps) {
   }
 
   return (
-    <div className="mx-auto flex w-full justify-center gap-4 ">
+    <div className="mx-auto flex w-full flex-wrap justify-center gap-4 ">
       <IconButton
         onClick={() =>
           handleClickPage(Number(searchParams.get("page") || 1) - 1)
